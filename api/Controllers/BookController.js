@@ -1,29 +1,28 @@
 const router = require('express').Router()
-const Task = require('../Models/TaskModal')
+const Book = require('../Models/BookModal')
 
 router.get('/', async(req, res)=>{
-  let response = await Task.find().populate('assigned_to').exec()
+  let response = await Book.find()
   res.send(response)
 })
 
 router.get('/:id', async(req, res)=>{
-  let response = await Task.find({ _id: req.params.id })
+  let response = await Book.find({ _id: req.params.id })
   res.send(response)
 })
 
 router.post('/', async(req, res)=>{
-  let response = await Task.create(req.body)
+  let response = await Book.create(req.body)
   res.send(response)
 })
 
 router.put('/:id', async(req, res)=>{
-  console.log(req.body)
-  let response = await Task.updateMany({ _id: req.params.id }, req.body)
+  let response = await Book.updateMany({ _id: req.params.id }, req.body)
   res.send(response)
 })
 
 router.delete('/:id', async(req, res)=>{
-  let response = await Task.deleteMany({ _id: req.params.id })
+  let response = await Book.deleteMany({ _id: req.params.id })
   res.send(response)
 })
 

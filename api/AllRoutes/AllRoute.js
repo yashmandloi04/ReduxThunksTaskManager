@@ -1,5 +1,7 @@
 const router = require('express').Router()
 
-router.get('/api/task', require('../Controllers/TaskController'))
+router.use('/api/book', require('../Controllers/BookController'))
+router.use('/api/task', require('../Controllers/TaskController'))
+router.use('/api/employee', require('../Controllers/EmployeeController'))
 
 module.exports = router

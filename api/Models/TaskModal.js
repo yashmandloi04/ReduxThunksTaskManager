@@ -7,10 +7,10 @@ const TaskSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  assigned_by: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'employer',
-  },
+  // assigned_by: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'employer',
+  // },
   assigned_to: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'employee',
@@ -19,4 +19,10 @@ const TaskSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  book: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'book',
+  },
 })
+
+module.exports = mongoose.model('task', TaskSchema)
