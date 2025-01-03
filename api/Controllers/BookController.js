@@ -2,6 +2,7 @@ const router = require('express').Router()
 const Book = require('../Models/BookModal')
 
 router.get('/', async(req, res)=>{
+  console.log('213213132')
   let response = await Book.find()
   res.send(response)
 })

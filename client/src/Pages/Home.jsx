@@ -11,7 +11,6 @@ const Home = () => {
   let allBooks = useSelector(state => state.BookSlice)
   useEffect(() => {
     dispatch(getAllBooks())
-    console.log(allBooks)
   }, [])
 
   const getBgCol = index => 'bg-b' + ((index % 5) + 2)

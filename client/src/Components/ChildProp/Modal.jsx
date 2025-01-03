@@ -37,6 +37,7 @@ const Modal = ({ setShowModal, action, cpName, selectedBook, addBook, delBook, a
       name: '',
     },
     onSubmit: (empFrm) => {
+      setShowModal(false)
       dispatch(addEmp(empFrm))
     }
   })
@@ -153,7 +154,7 @@ const Modal = ({ setShowModal, action, cpName, selectedBook, addBook, delBook, a
                     :
                     action == 'addEmp'
                       ?
-                      `Add Employyee`
+                      `Add Employee`
                       :
                       ''
               }
