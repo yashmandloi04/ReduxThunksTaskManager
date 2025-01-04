@@ -7,23 +7,28 @@ import { useParams } from 'react-router-dom'
 import { useFormik } from 'formik'
 import Modal from '../Components/ChildProp/Modal'
 import { FiUserPlus } from "react-icons/fi";
+import AddEmpFrm from '../Components/ChildProp/TaskList/AddEmpFrm'
+import DelModal from '../Components/ChildProp/DelModal'
 
 const TaskList = () => {
   const dispatch = useDispatch()
   const params = useParams()
+  const allEmp = useSelector(state => state.EmployeeSlice)
   let [book, setBook] = useState({})
-  let [selectedTask, setSelectedTask] = useState({})
   let [empList, setEmpList] = useState([])
   let [showAddEmpMd, setShowAddEmpMd] = useState(false)
   let [showDelModal, setShowDelModal] = useState(false)
+  let [selectedTask, setSelectedTask] = useState({})
   const allTask = useSelector(state => state.TaskSlice)
-  const allEmp = useSelector(state => state.EmployeeSlice)
+
   useEffect(() => {
     getBook()
     dispatch(getAllTask((params.bookId)))
     dispatch(getAllEmp())
   }, [])
-
+  const dispatchHandler = (handler, params)=>{
+    dispatch(handler(params))
+  }
   const getBook = async () => {
     let bookName = await getBookDetails(params.bookId)
     setBook(bookName)
@@ -55,11 +60,11 @@ const TaskList = () => {
     {
       showDelModal
       &&
-      <Modal
+      <DelModal
         setShowModal={setShowDelModal}
-        action={'delTask'}
         cpName={'Task'}
-        selectedTask={selectedTask}
+        selectedElement={selectedTask}
+        dispatchHandler={dispatchHandler}
         delHandler={delTask}
       />
     }
@@ -86,9 +91,11 @@ const TaskList = () => {
                 name='assigned_to'
               >
                 <option value="null">- Select employee -</option>
+                {/* <AddEmpFrm /> */}
                 {
                   allEmp &&
                   allEmp.map(emp => <option key={emp._id} value={emp._id}>{emp.name}</option>)
+
                 }
               </select>
               <button className="w-14 md:w-24 rounded-e-lg bg-white placeholder-black text-black opacity-50 border border-gray-300 border-l-gray-500 hover:opacity-40 focus:ring-2 focus:ring-black focus:outline-none" type="button"
@@ -148,7 +155,7 @@ const TaskList = () => {
                             <button style={{ width: '30px' }}
                               onClick={() => {
                                 setShowDelModal(true)
-                                setSelectedTask(book)
+                                setSelectedTask(task)
                               }}
                               className='mx-2 shadow-2xl shadow-white'
                             >
@@ -178,6 +185,8 @@ const TaskList = () => {
                     </th>
                     <th scope="col" className="px-6 py-3">
                     </th>
+                    <th scope="col" className="px-6 py-3">
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -196,6 +205,17 @@ const TaskList = () => {
                               onClick={() => statusChangeHandler(task)}
                               className="px-6 py-3 rounded-lg bg-[#4441e5] hover:bg-[#5856e5]">
                               Undo
+                            </button>
+                          </td>
+                          <td>
+                            <button style={{ width: '30px' }}
+                              onClick={() => {
+                                setShowDelModal(true)
+                                setSelectedTask(task)
+                              }}
+                              className='mx-2 shadow-2xl shadow-white'
+                            >
+                              <img src="../../public/cross.svg" alt="Add icon" className='hover:scale-105 transition hover:rotate-90' />
                             </button>
                           </td>
                         </tr>

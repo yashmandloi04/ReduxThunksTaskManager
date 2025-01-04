@@ -3,6 +3,8 @@ import { addBook, getAllBooks, delBook } from '../Redux/BookSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../Components/ChildProp/Modal'
 import { NavLink } from 'react-router-dom'
+import AddBookModal from '../Components/ChildProp/AddBookModal'
+import DelModal from '../Components/ChildProp/DelModal'
 const Home = () => {
   const dispatch = useDispatch()
   let [selectedBook, setSelectedBook] = useState('')
@@ -12,30 +14,29 @@ const Home = () => {
   useEffect(() => {
     dispatch(getAllBooks())
   }, [])
-
+const dispatchHandler = (handler, params)=>{
+  dispatch(handler(params))
+}
   const getBgCol = index => 'bg-b' + ((index % 5) + 2)
   return <>
     {
       showAddModal
       &&
-      <Modal
+      <AddBookModal
         setShowModal={setShowAddModal}
-        action={'addBook'}
-        addBook={addBook}
       />
     }
     {
       showDelModal
       &&
-      <Modal
+      <DelModal
         setShowModal={setShowDelModal}
-        action={'delBook'}
         cpName={'Book'}
-        selectedBook={selectedBook}
-        delBook={delBook}
+        selectedElement={selectedBook}
+        dispatchHandler={dispatchHandler}
+        delHandler={delBook}
       />
     }
-
 
     <div className=' max-w-full min-h-screen p-5 md:p-15 container bg-b1 opacity-100 text-t1 '>
       <div>

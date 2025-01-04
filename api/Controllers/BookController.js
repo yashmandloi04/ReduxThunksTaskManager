@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const Book = require('../Models/BookModal')
+const Task = require('../Models/TaskModal')
 
 router.get('/', async(req, res)=>{
-  console.log('213213132')
   let response = await Book.find()
   res.send(response)
 })
@@ -24,6 +24,7 @@ router.put('/:id', async(req, res)=>{
 
 router.delete('/:id', async(req, res)=>{
   let response = await Book.deleteMany({ _id: req.params.id })
+  await Task.deleteMany({ book: req.params.id })
   res.send(response)
 })
 
