@@ -5,6 +5,7 @@ import Modal from '../Components/ChildProp/Modal'
 import { NavLink } from 'react-router-dom'
 import AddBookModal from '../Components/ChildProp/AddBookModal'
 import DelModal from '../Components/ChildProp/DelModal'
+
 const Home = () => {
   const dispatch = useDispatch()
   let [selectedBook, setSelectedBook] = useState('')
@@ -14,9 +15,9 @@ const Home = () => {
   useEffect(() => {
     dispatch(getAllBooks())
   }, [])
-const dispatchHandler = (handler, params)=>{
-  dispatch(handler(params))
-}
+  const dispatchHandler = (handler, params) => {
+    dispatch(handler(params))
+  }
   const getBgCol = index => 'bg-b' + ((index % 5) + 2)
   return <>
     {
@@ -73,13 +74,14 @@ const dispatchHandler = (handler, params)=>{
             <div className="text-6xl text-center">No books found, create a new by + icon given below.</div>
         }
 
-        <div className='fixed bottom-14 right-10 text-t1'>
+        <div className='fixed bottom-0 right-10 text-t1'>
           <button
             className='w-16 md:w-auto'
             onClick={() => {
               setShowAddModal(true)
             }}>
-            <img src="../../public/add-square-btn.svg" alt="Add icon" className='hover:scale-105 transition hover:rotate-90' />
+            <img src='../../public/add.svg' alt="Add icon" className='hover:scale-105 transition hover:rotate-90' />
+            
           </button>
 
         </div>

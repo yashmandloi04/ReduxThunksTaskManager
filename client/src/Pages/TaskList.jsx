@@ -103,7 +103,7 @@ const TaskList = () => {
                   setShowAddEmpMd(true)
                 }}
               >
-                <div className='px-4'>
+                <div className='px-4 md:px-8'>
                   <FiUserPlus size={20} />
                 </div>
               </button>
@@ -117,9 +117,9 @@ const TaskList = () => {
         <div className='md:flex md:justify-between'>
           <div className='md:w-1/2 md:me-2'>
             <h2 className='py-3 text-3xl capitalize'>Task not done yet...</h2>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="relative overflow-x-auto shadow-md rounded-lg">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-lg capitalize bg-[#8685ef] text-black border-b-2 border-b-[#b1b0e8]">
+                <thead className="text-lg capitalize bg-[#E76D83] text-black border-b-2 border-b-[#7c3c4a]">
                   <tr>
                     <th scope="col" className="px-6 py-3">
                       Task
@@ -137,7 +137,7 @@ const TaskList = () => {
                   {
                     allTask.map(task => {
                       if (task.status == 0) {
-                        return <tr key={task._id} className="text-md font-semibold text-[#000000] bg-[#8685ef] border-b-2 border-b-[#b6b5e9]">
+                        return <tr key={task._id} className="text-md font-semibold text-[#000000] bg-[#E76D83] border-b-2 border-b-[#7c3c4a]">
                           <td className="px-6 py-4">
                             {task.task}
                           </td>
@@ -147,7 +147,7 @@ const TaskList = () => {
                           <td>
                             <button
                               onClick={() => statusChangeHandler(task)}
-                              className="px-6 py-3 rounded-lg bg-[#4441e5] hover:bg-[#5856e5]">
+                              className="px-6 py-3 rounded-lg bg-[#7c3c4a] hover:bg-[#B25567]">
                               Done
                             </button>
                           </td>
@@ -173,9 +173,9 @@ const TaskList = () => {
 
           <div className='md:w-1/2 md:ms-2'>
             <h2 className='py-3 text-3xl capitalize'>Task completed...</h2>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="relative overflow-x-auto shadow-md rounded-lg">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-lg capitalize bg-[#8685ef] text-black border-b-2 border-b-[#b1b0e8]">
+                <thead className="text-lg capitalize bg-[#E76D83] text-black border-b-2 border-b-[#7c3c4a]">
                   <tr>
                     <th scope="col" className="px-6 py-3">
                       Task
@@ -193,7 +193,7 @@ const TaskList = () => {
                   {
                     allTask.map(task => {
                       if (task.status == 1) {
-                        return <tr key={task._id} className="text-md font-semibold text-[#000000] bg-[#8685ef] border-b-2 border-b-[#b6b5e9]">
+                        return <tr key={task._id} className="text-md font-semibold text-[#000000] bg-[#E76D83] border-b-2 border-b-[#7c3c4a]">
                           <td className="px-6 py-4">
                             {task.task}
                           </td>
@@ -203,7 +203,7 @@ const TaskList = () => {
                           <td>
                             <button
                               onClick={() => statusChangeHandler(task)}
-                              className="px-6 py-3 rounded-lg bg-[#4441e5] hover:bg-[#5856e5]">
+                              className="px-6 py-3 rounded-lg bg-[#7c3c4a] hover:bg-[#B25567]">
                               Undo
                             </button>
                           </td>
