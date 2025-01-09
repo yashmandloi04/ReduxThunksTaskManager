@@ -1,19 +1,22 @@
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { addBook } from '../../Redux/BookSlice'
+import BookValidation from '../../Schema/BookValidation'
 
 const AddBookModal = ({ setShowModal }) => {
   const dispatch = useDispatch()
+  const bookField = useRef('')
   const BookFrm = useFormik({
+    validationSchema: BookValidation,
     initialValues: {
       name: ''
     },
     onSubmit: async (frmData) => {
       setShowModal(false)
       try {
-        console.log(frmData)
         dispatch(addBook(frmData))
+        bookField.current.value = ''
       } catch (error) {
         console.log(`ERROR--->${error}`)
       }
@@ -52,15 +55,17 @@ const AddBookModal = ({ setShowModal }) => {
             <h3 className="mb-5 text-lg font-normal text-white dark:text-white">
               Add new Book
             </h3>
-            <input type="text" name='name' onChange={BookFrm.handleChange}
+            <input type="text" ref={bookField} name='name' onChange={BookFrm.handleChange}
               className={`block w-full m-auto my-4 p-2 rounded-lg bg-white placeholder-black opacity-50 ${BookFrm.errors.name
                 && BookFrm.touched.name
                 && 'border-red-500'}`}
 
               placeholder='Enter book name here...' />
+            <div className='mb-2'>
             {BookFrm.errors.name
               && BookFrm.touched.name
               && <small className='text-red-500'>{BookFrm.errors.name}</small>}
+            </div>
             <button
               type="submit"
               className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"

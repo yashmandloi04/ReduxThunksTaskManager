@@ -1,17 +1,21 @@
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { addEmp } from '../../Redux/EmployeeSlice'
+import TaskValidation from '../../Schema/TaskValidation'
+import EmployeeValidation from '../../Schema/EmployeeValidation'
 
-const AddEmpModal = ({ setShowModal }) => {
+const AddEmpModal = ({ setShowModal, addEmp }) => {
   const dispatch = useDispatch()
+  const nameField = useRef('')
   const EmpFrm = useFormik({
+    validationSchema: EmployeeValidation,
     initialValues: {
       name: '',
     },
     onSubmit: (empFrm) => {
-      setShowModal(false)
       dispatch(addEmp(empFrm))
+      nameField.current.value = ''
     }
   })
   return (
@@ -42,23 +46,24 @@ const AddEmpModal = ({ setShowModal }) => {
         </button>
 
         {/* Modal Body */}
-        <form onSubmit={EmpFrm.handleSubmit}>
-          <div className="p-4 md:p-5 text-center">
+        <div className="p-4 md:p-5 text-center">
+          <form onSubmit={EmpFrm.handleSubmit}>
 
             <h3 className="mb-5 text-lg font-normal text-white dark:text-white">
               Add new employee
-
             </h3>
 
-            <input type="text" name='name' onChange={EmpFrm.handleChange}
+            <input type="text" ref={nameField} name="name" onChange={EmpFrm.handleChange}
               className={`block w-full m-auto my-4 p-2 rounded-lg bg-white placeholder-black opacity-50 ${EmpFrm.errors.name
                 && EmpFrm.touched.name
                 && 'border-red-500'}`}
 
               placeholder='Enter employee name here...' />
-            {EmpFrm.errors.name
-              && EmpFrm.touched.name
-              && <small className='text-red-500'>{EmpFrm.errors.name}</small>}
+            <div className='mb-2'>
+              {EmpFrm.errors.name
+                && EmpFrm.touched.name
+                && <small className='text-red-500'>{EmpFrm.errors.name}</small>}
+            </div>
 
 
             <button
@@ -75,8 +80,8 @@ const AddEmpModal = ({ setShowModal }) => {
             >
               No, cancel
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
 
       </div>
     </div>

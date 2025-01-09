@@ -42,12 +42,10 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   let taskToDeleted = await Task.findOne({ _id: req.params.id })
   let response = await Task.deleteMany({ _id: req.params.id })
-  // console.log(taskToDeleted)
   await Book.updateOne(
     { _id: taskToDeleted.book },
-    { $pull: { task: req.params.id } }
+    { $pull: { task: taskToDeleted._id } }
   );
-  // console.log("Task removed successfully");
   res.send(response)
 })
 

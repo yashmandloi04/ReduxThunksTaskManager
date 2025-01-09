@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { addBook, getAllBooks, delBook } from '../Redux/BookSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import Modal from '../Components/ChildProp/Modal'
 import { NavLink } from 'react-router-dom'
 import AddBookModal from '../Components/ChildProp/AddBookModal'
 import DelModal from '../Components/ChildProp/DelModal'
+import NotResultFound from '../Components/ChildProp/NotResultFound'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -71,7 +71,8 @@ const Home = () => {
               )
             })
             :
-            <div className="text-6xl text-center">No books found, create a new by + icon given below.</div>
+            <NotResultFound />
+            // <div className="text-6xl text-center">No books found, create a new by + icon given below.</div>
         }
 
         <div className='fixed bottom-0 right-10 text-t1'>

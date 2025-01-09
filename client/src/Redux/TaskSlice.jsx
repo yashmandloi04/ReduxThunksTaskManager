@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { API_URL } from '../../Helpers/Path'
 
+
 const addTask = createAsyncThunk('addTask', async (taskFrm) => {
   let response = await axios.post(`${API_URL}/task`, taskFrm)
   console.log(response.data)
@@ -18,8 +19,12 @@ const updateTask = createAsyncThunk('updateTask', async (taskObj) => {
     return taskObj
 })
 const getAllTask = createAsyncThunk('getAllTask', async (bookId) => {
-  let response = await axios.get(`${API_URL}/task/getbybookid/${bookId}`)
+  try {
+    let response = await axios.get(`${API_URL}/task/getbybookid/${bookId}`)
   return response.data
+  } catch (error) {
+    console.log('Internal server error.')
+  }
 })
 const changeStatus = createAsyncThunk('changeStatus', async (taskObj) => {
   let response = await axios.put(`${API_URL}/task/changestatus/${taskObj._id}`, taskObj)
